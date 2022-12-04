@@ -1,0 +1,31 @@
+p {
+  color: var(--fontMain);
+}
+html,
+body {
+  
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+:root {
+  --fontMain: rgba(15, 20, 25);
+  --fontContrast: rgba(250,250,250);
+
+  --accentBlue: rgba(29, 155, 240);
+  --accentBlueHover: rgba(26,140,216);
+  --backgroundLogoHover: rgba(29, 155, 240, 0.1);
+  --backgroundButtonHover: rgba(15, 20, 25, 0.1);
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}

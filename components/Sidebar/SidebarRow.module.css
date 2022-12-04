@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    max-width: fit-content;
+    padding: 12px;
+    border-radius: 9999px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+.container:hover {
+    background-color: var(--backgroundButtonHover);
+}
+.icon {
+    display: flex;
+    align-items: center;    
+}
+.container span {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+@media (max-width: 1300px) {
+    .container span {
+        display: none;
+    }
+}
