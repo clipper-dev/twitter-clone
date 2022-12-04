@@ -1,19 +1,23 @@
 .container {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     max-width: fit-content;
-    padding: 12px;
+    padding: 10px;
     border-radius: 9999px;
     font-size: 20px;
+    height: 50px;
+    min-width: 50px;
     cursor: pointer;
     transition: all 0.1s;
+    margin-bottom: 5px;
 }
 .container:hover {
     background-color: var(--backgroundButtonHover);
 }
 .icon {
     display: flex;
-    align-items: center;    
+    align-items: center;
 }
 .container span {
     margin-left: 16px;
@@ -22,5 +26,8 @@
 @media (max-width: 1300px) {
     .container span {
         display: none;
+    }
+    .container {
+        justify-content: center;
     }
 }

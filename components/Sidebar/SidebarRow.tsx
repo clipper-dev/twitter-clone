@@ -13,7 +13,7 @@ export default function SidebarRow({ Icon, title }: Props) {
       <div className={styles.icon}>
         <Icon />
       </div>
-      <span className={styles.text}>{title}</span>
+      <span>{title}</span>
     </div>
   );
 }

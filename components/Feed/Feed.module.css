@@ -1,5 +1,9 @@
 .container {
     width: 600px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-left: 1px solid var(--borderMain);
+    border-right: 1px solid var(--borderMain);
 }
 .header {
     display: flex;

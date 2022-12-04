@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+}
+.profilePicture {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.submitButton {
+    background-color: var(--accentBlue);
+    border-radius: 9999px;
+    border: none;
+    padding: 8px 18px;
+    color: var(--fontContrast);
+    font-weight: 600;
+    cursor: pointer;
+}
+.submitButton:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+.submitButton:enabled:hover {
+    background-color: var(--accentBlueHover);
+}
+.container form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 8px;
+}
+.container input {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    line-height: 24px;
+    white-space: pre-wrap;
+    outline: none;
+    border: none;
+}
+.items {
+    display: flex;
+    margin-top: 8px;    
+}
+.utilityButtons{
+    flex: 1;
+    display: flex;
+    font-size: 20px;
+    color: var(--accentBlue);
+    gap: 4px;
+}
+.profilePicture:hover {
+    filter: brightness(0.8);    
+}
+.utilityButtons svg {
+    padding: 8px;
+    border-radius: 9999px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.utilityButtons svg:hover {
+    background-color: var(--backgroundLogoHover);
+}

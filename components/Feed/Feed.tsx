@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Feed.module.css";
 import {BsStars} from 'react-icons/bs'
+import TweetBox from "../TweetBox/TweetBox";
 
 export default function Feed() {
   return (
@@ -9,6 +10,7 @@ export default function Feed() {
         <h1>Home</h1>
         <h1 className={styles.swapFeedIcon}><BsStars/></h1>
       </div>
+      <TweetBox/>
     </div>
   );
 }

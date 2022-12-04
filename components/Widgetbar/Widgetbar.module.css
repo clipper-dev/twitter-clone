@@ -1,12 +1,14 @@
 .container {
     width: 350px;
+    margin-left: 8px;
+    margin-top: 8px;    
 }
 .searchBar {
     display: flex;
     align-items: center;
     border-radius: 9999px;
-    background-color: var(--backgroundButtonHover);
-    border: 1px solid var(--backgroundButtonHover);
+    background-color: var(--backgroundForm);
+    border: 1px solid var(--borderMain);
 }
 .searchBar input {
     background: none;
@@ -18,7 +20,7 @@
 .searchIcon {
     align-self: center;
     margin-left: 16px;
-    fill: var(--fontMain);    
+    fill: var(--searchIcon);    
 }
 .searchBar:focus-within {
     background-color: transparent;

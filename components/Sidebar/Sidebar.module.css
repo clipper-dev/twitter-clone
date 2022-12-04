@@ -2,9 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    min-width: 60px;
+    height: 100%;
+    flex-shrink: 0;
+    overflow-y: auto;
 }
 .logo {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 50px;
@@ -18,6 +23,7 @@
 }
 .tweetButton {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     min-height: 52px;
@@ -38,6 +44,7 @@
 }
 .tweetButtonMobile {
     display: none;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     color: var(--fontContrast);
@@ -47,11 +54,13 @@
     padding: 8px;
     border-radius: 9999px;
     background-color: var(--accentBlue);
+    cursor: pointer;
+    transition: all 0.2s;
 }
 .tweetButtonMobile:hover{
     background-color: var(--accentBlueHover);
 }
-@media (max-width: 1020px) {
+@media (max-width: 1300px) {
     .container {
         align-items: center;
     }

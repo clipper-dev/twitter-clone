@@ -16,9 +16,14 @@ body {
 
   --accentBlue: rgba(29, 155, 240);
   --accentBlueHover: rgba(26,140,216);
+
   --backgroundLogoHover: rgba(29, 155, 240, 0.1);
   --backgroundButtonHover: rgba(15, 20, 25, 0.1);
+  --backgroundForm: rgba(239,243,244);
 
+  --searchIcon: rgba(83,100,113);
+  
+  --borderMain: rgba(239,243,244);
 }
 
 a {
