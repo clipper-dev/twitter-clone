@@ -5,6 +5,9 @@ const nextConfig = {
   images: {
     domains: ['coderburg.com','randomuser.me'],
   },
+  experimental: {
+    appDir: true
+  }
 }
 
 module.exports = nextConfig

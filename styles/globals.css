@@ -24,6 +24,7 @@ body {
   --searchIcon: rgba(83,100,113);
   
   --borderMain: rgba(239,243,244);
+  --borderImage: rgba(207,217,222);
 }
 
 a {
