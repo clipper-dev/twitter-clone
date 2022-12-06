@@ -1,20 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "./TweetBox.module.css";
 import { HiPhoto, HiGif, HiListBullet } from "react-icons/hi2";
 import { HiEmojiHappy, HiCalendar, HiLocationMarker } from "react-icons/hi";
+import { useSession } from "next-auth/react";
 
 export default function TweetBox() {
   const [tweetInput, setTweetInput] = useState("");
+  const { data: session } = useSession();
   return (
     <div className={styles.container}>
-      <div className={styles.profilePicture}>
-        <Image
-          src="https://randomuser.me/api/portraits/women/1.jpg"
-          alt="User profile"
-          layout="fill"
-        />
-      </div>
+      <img
+        className={styles.profilePicture}
+        src={
+          session?.user?.image ||
+          "https://randomuser.me/api/portraits/women/1.jpg"
+        }
+        alt="User profile"
+        width={48}
+        height={48}
+      />
       <form>
         <input
           type="text"
@@ -33,7 +40,9 @@ export default function TweetBox() {
             <HiLocationMarker />
           </div>
           {/* submiting form */}
-          <button disabled={!tweetInput} className={styles.submitButton}>Tweet</button>
+          <button disabled={!tweetInput} className={styles.submitButton}>
+            Tweet
+          </button>
         </div>
       </form>
     </div>

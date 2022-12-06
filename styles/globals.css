@@ -12,6 +12,7 @@ body {
 
 :root {
   --fontMain: rgba(15, 20, 25);
+  --fontSecondary: rgba(83,100,113);
   --fontContrast: rgba(250,250,250);
 
   --accentBlue: rgba(29, 155, 240);

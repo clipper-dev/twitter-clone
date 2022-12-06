@@ -5,34 +5,36 @@ import Feed from '../components/Feed/Feed'
 import Sidebar from '../components/Sidebar/Sidebar'
 import Widgetbar from '../components/Widgetbar/Widgetbar'
 import styles from '../styles/Home.module.css'
-import { Tweet } from '../typings.def'
+import { Comment, Tweet } from '../typings.def'
+
+import { unstable_getServerSession } from 'next-auth/next'
+import { Providers } from '../components/Auth/Providers'
 
 async function GetTweets() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`,{
-
-  });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
   const data = await res.json();
-  const tweets: Tweet[] = data.tweets;
-
+  const tweets: Tweet[] = data;
   return tweets;
 }
 export default async function Home() {
 
   const tweets = await GetTweets();
 
-  
+  const session = await unstable_getServerSession();
   
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        {/* sidebar */}
-        <Sidebar/>
-        {/* main feed */}
-        <Feed tweets={tweets}/>
-        {/* widgets */}
-        <Widgetbar/>
-      </main>
-    </div>
+    <Providers session={session}>
+      <div className={styles.container}>
+        <main className={styles.main}>
+          {/* sidebar */}
+          <Sidebar/>
+          {/* main feed */}
+          <Feed tweets={tweets}/>
+          {/* widgets */}
+          <Widgetbar/>
+        </main>
+      </div>
+    </Providers>
   )
 }
 

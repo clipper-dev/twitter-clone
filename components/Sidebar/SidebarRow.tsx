@@ -7,7 +7,7 @@ interface Props {
   title: string;
 }
 
-export default function SidebarRow({ Icon, title }: Props) {
+export default function SidebarRow({ Icon, title}: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.icon}>
