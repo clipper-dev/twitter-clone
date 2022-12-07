@@ -11,7 +11,7 @@ export default function SignInComponent({providers}:Props) {
   return (
     <div className={styles.container}>
       <h2>Welcome 👋</h2>
-       {Object.values(providers!).map((provider)=>(
+       {providers && Object.values(providers!).map((provider)=>(
         <div key={provider.name}>
           <button onClick={()=>signIn(provider.id, {
             callbackUrl: "/"
