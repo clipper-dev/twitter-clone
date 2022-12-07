@@ -41,7 +41,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
       username: tweet.username,
       picture: tweet.picture,
     };
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/updateTweet`, {
+    const res = await fetch(`/api/updateTweet`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
 
   /* delete tweet */
   const deleteTweet = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/deleteTweet`, {
+    const res = await fetch(`/api/deleteTweet`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
   /* adding comments */
   const refetchComments = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/getComments?tweetId=${tweet._id}`
+      `/api/getComments?tweetId=${tweet._id}`
     );
     const data = await res.json();
     const comments: Comment[] = data.comments;
@@ -89,7 +89,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
         "https://randomuser.me/api/portraits/women/1.jpg",
       tweetId: tweet._id,
     };
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/addComment`, {
+    const res = await fetch(`/api/addComment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
 
   const fetchComments = async (tweetId: string) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/getComments?tweetId=${tweetId}`
+      `/api/getComments?tweetId=${tweetId}`
     );
     const data = await res.json();
     const comments: Comment[] = data.comments;

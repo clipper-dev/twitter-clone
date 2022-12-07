@@ -18,7 +18,7 @@ export default function Feed({ tweets}:Props) {
 
 
   const refetchTweets = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
+    const res = await fetch(`/api/getTweets`);
     const data = await res.json();
     const tweets: Tweet[] = data.tweets;
     setTweetsFetched(tweets);

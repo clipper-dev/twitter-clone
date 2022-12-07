@@ -28,7 +28,7 @@ export default function TweetBox({ toggleRefetchFlag }: Props) {
         session?.user?.image ||
         "https://randomuser.me/api/portraits/women/1.jpg",
     };
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/addTweet`, {
+    const res = await fetch(`/api/addTweet`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

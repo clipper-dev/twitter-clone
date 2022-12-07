@@ -6,14 +6,31 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import Widgetbar from '../components/Widgetbar/Widgetbar'
 import styles from '../styles/Home.module.css'
 import { Comment, Tweet } from '../typings.def'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import {groq} from 'next-sanity'
+import {client} from '../sanity'
 
 import { unstable_getServerSession } from 'next-auth/next'
 import { Providers } from '../components/Auth/Providers'
 
+const query = groq`
+  *[_type=="tweet"] {
+    _id,
+    ...
+  } | order(_createdAt desc)
+`
+type Data = {
+  tweets: Tweet[]
+}
+async function GetTweetsHandler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  const tweets: Tweet[] = await client.fetch(query);
+  return tweets;
+}
 async function GetTweets() {
-  const res = await fetch(`${process.env.NOW_URL}/api/getTweets`);
-  const data = await res.json();
-  const tweets: Tweet[] = data.tweets;
+  const tweets: Tweet[] = await GetTweetsHandler({} as NextApiRequest, {} as NextApiResponse);
 
   return tweets;
 }
