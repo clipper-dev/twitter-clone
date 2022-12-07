@@ -6,7 +6,11 @@ import styles from "./TweetView.module.css";
 import TimeAgo from "react-timeago";
 
 import { HiOutlineSwitchVertical, HiUpload } from "react-icons/hi";
-import { HiOutlineHeart, HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+import {
+  HiOutlineHeart,
+  HiOutlineChatBubbleOvalLeft,
+  HiPencil,
+} from "react-icons/hi2";
 import { useSession } from "next-auth/react";
 
 interface Props {
@@ -33,7 +37,8 @@ export default function TweetView({ tweet }: Props) {
       content: commentContent,
       username: session?.user?.name || "Anonymous",
       picture:
-        session?.user?.image || "https://randomuser.me/api/portraits/women/1.jpg",
+        session?.user?.image ||
+        "https://randomuser.me/api/portraits/women/1.jpg",
       tweetId: tweet._id,
     };
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/addComment`, {
@@ -43,15 +48,17 @@ export default function TweetView({ tweet }: Props) {
       },
       body: JSON.stringify(comment),
     });
-  };      
+  };
 
-  const handleAddComment = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleAddComment = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     await postComment();
     setCommentContent("");
     setShowCommentBox(false);
     await refetchComments();
-  }
+  };
 
   const fetchComments = async (tweetId: string) => {
     const res = await fetch(
@@ -128,7 +135,8 @@ export default function TweetView({ tweet }: Props) {
                       className={styles.timeAgo}
                       date={comment._createdAt}
                     />
-                  </div>
+ {/*                    {comment.username === session?.user?.name && <HiPencil className={styles.editComment} />}
+ */}                  </div>
                   <div className={styles.tweet}>{comment.content}</div>
                 </div>
               </div>

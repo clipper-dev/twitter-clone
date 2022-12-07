@@ -75,11 +75,7 @@
   margin: 0;
   margin-left: 8px;
 }
-.comment {
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid var(--borderMain);
-}
+
 .container form {
   display: flex;
   flex-grow: 1;
@@ -95,7 +91,7 @@
   border: none;
 }
 .commentBox img {
-  margin-top: 16px;
+  margin: 16px 0;
 }
 .commentBox span {
   font-size: 15px;
@@ -128,4 +124,28 @@
 .commentBox button:disabled {
   cursor: default;
   opacity: 0.5;
+}
+.comment {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid var(--borderMain);
+  border-bottom: 1px solid var(--borderMain);
+  padding: 8px;
+  padding-top: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+/* editing comment */
+.comment:hover {
+  background-color: var(--backgroundButtonHover);
+}
+.editComment {
+  padding: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+}
+.editComment:hover {
+  color: var(--accentBlue);
+  background-color: var(--backgroundLogoHover);
 }
