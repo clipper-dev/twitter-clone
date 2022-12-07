@@ -11,7 +11,7 @@ import { unstable_getServerSession } from 'next-auth/next'
 import { Providers } from '../components/Auth/Providers'
 
 async function GetTweets() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
+  const res = await fetch(`${process.env.NOW_URL}/api/getTweets`);
   const data = await res.json();
   const tweets: Tweet[] = data.tweets;
 
