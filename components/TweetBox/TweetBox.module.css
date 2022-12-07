@@ -3,6 +3,7 @@
     margin-bottom: 12px;
 }
 .profilePicture {
+    flex-shrink: 0;
     position: relative;
     width: 48px;
     height: 48px;
@@ -32,6 +33,7 @@
     flex-direction: column;
     flex-grow: 1;
     margin-left: 8px;
+    margin-right: 12px;
 }
 .container input {
     padding-top: 20px;
@@ -66,4 +68,12 @@
 }
 .utilityButtons svg:hover {
     background-color: var(--backgroundLogoHover);
+}
+.imageBox {
+    display: flex;
+    flex-direction: column;
+}
+.imageBox img {
+    border: 1px solid var(--borderImage);
+    border-radius: 16px;
 }

@@ -1,11 +1,13 @@
 .container{
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
     display: flex;
     flex-direction: column;
     align-items: baseline;
     min-width: 250px;
-    height: 100%;
+    height: 100vh;
     flex-shrink: 0;
-    overflow-y: auto;
 }
 .logo {
     display: flex;

@@ -13,7 +13,8 @@ import { Providers } from '../components/Auth/Providers'
 async function GetTweets() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
   const data = await res.json();
-  const tweets: Tweet[] = data;
+  const tweets: Tweet[] = data.tweets;
+
   return tweets;
 }
 export default async function Home() {

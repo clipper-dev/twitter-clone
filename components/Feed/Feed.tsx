@@ -14,16 +14,17 @@ interface Props {
 
 export default function Feed({ tweets}:Props) {
   const {data: session} = useSession();
+  const [tweetsFetched, setTweetsFetched] = React.useState<Tweet[]>(tweets);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Home</h1>
         <h1 className={styles.swapFeedIcon}><BsStars/></h1>
       </div>
-      {session && <TweetBox/>}
-      {tweets.map(tweet => {
+      {session && <TweetBox setTweetsFetched={setTweetsFetched}/>}
+      {tweetsFetched.map(tweet => {
         return (
-          <TweetView key={tweet._id} tweet={tweet}/>
+          <TweetView key={tweet._id} tweet={tweet} />
         )
       })}
     </div>

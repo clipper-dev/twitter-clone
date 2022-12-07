@@ -13,14 +13,14 @@ export interface Tweet extends TweetPure {
     _rev: string
 }
 
-export type CommenPure = {
+export type CommentPure = {
     content: string
     username: string
     picture: string
     tweetId: string
 }
 
-export interface Comment extends CommenPure {
+export interface Comment extends CommentPure {
     _id: string
     _createdAt: string
     _updatedAt: string

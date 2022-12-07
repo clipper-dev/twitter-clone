@@ -57,9 +57,75 @@
   flex-direction: row;
   align-items: center;
 }
+.iconInner {
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.iconInner:hover {
+  color: var(--accentBlue);
+  background-color: var(--backgroundLogoHover);
+}
 .icon p {
   font-size: 13px;
   padding: 0;
   margin: 0;
   margin-left: 8px;
+}
+.comment {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid var(--borderMain);
+}
+.container form {
+  display: flex;
+  flex-grow: 1;
+  margin: 8px 0;
+}
+.commentBox input {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+  line-height: 24px;
+  white-space: pre-wrap;
+  outline: none;
+  border: none;
+}
+.commentBox img {
+  margin-top: 16px;
+}
+.commentBox span {
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--fontSecondary);
+  font-weight: 600;
+  cursor: pointer;
+}
+.commentBox .userName {
+  color: var(--accentBlue);
+}
+.commentBox .content {
+  display: flex;
+  flex-direction: column;
+}
+.commentBox button {
+  align-self: flex-end;
+  padding: 12px 16px;
+  color: var(--fontContrast);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--accentBlue);
+  border-radius: 9999px;
+  transition: all 0.2s;
+}
+.commentBox button:enabled:hover {
+  background-color: var(--accentBlueHover);
+}
+.commentBox button:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
