@@ -14,7 +14,7 @@ export default function SignInComponent({providers}:Props) {
        {Object.values(providers!).map((provider)=>(
         <div key={provider.name}>
           <button onClick={()=>signIn(provider.id, {
-            callbackUrl: process.env.NEXT_PUBLIC_URL || "localhost:3000"
+            callbackUrl: "/"
           })}>Sign in with {provider.name}</button>
           </div>
             ))}
