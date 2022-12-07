@@ -2,7 +2,7 @@
 import React from "react";
 import { HiDotsHorizontal, HiSearch } from "react-icons/hi";
 import styles from "./Widgetbar.module.css";
-import { trends } from "../../data/data";
+import { trends } from "../../Data/data";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 

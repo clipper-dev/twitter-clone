@@ -135,6 +135,20 @@
   cursor: pointer;
   transition: all 0.2s;
 }
+/* editing tweet */
+.editTweet, .deleteTweet {
+  padding: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+.editTweet:hover, .deleteTweet:hover {
+  color: var(--accentBlue);
+  background-color: var(--backgroundLogoHover);
+}
+
+
 /* editing comment */
 .comment:hover {
   background-color: var(--backgroundButtonHover);
@@ -148,4 +162,7 @@
 .editComment:hover {
   color: var(--accentBlue);
   background-color: var(--backgroundLogoHover);
+}
+.editedTweetContent {
+  resize: none;
 }

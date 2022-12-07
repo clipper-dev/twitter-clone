@@ -8,21 +8,16 @@ import { useSession } from "next-auth/react";
 import { TweetPure, Tweet } from "../../typings.def";
 
 interface Props {
-  setTweetsFetched: React.Dispatch<React.SetStateAction<Tweet[]>>;
+  toggleRefetchFlag: () => void;
 }
 
-export default function TweetBox({ setTweetsFetched }: Props) {
+export default function TweetBox({ toggleRefetchFlag }: Props) {
   const [tweetInput, setTweetInput] = useState<string>("");
   const { data: session } = useSession();
   const [image, setImage] = useState<string>("");
   const [showImageBox, setShowImageBox] = useState<boolean>(false);
 
-  const refetchTweets = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
-    const data = await res.json();
-    const tweets: Tweet[] = data.tweets;
-    setTweetsFetched(tweets);
-  };
+
 
   const postTweet = async () => {
     const tweetPure: TweetPure = {
@@ -48,7 +43,7 @@ export default function TweetBox({ setTweetsFetched }: Props) {
     setTweetInput("");
     setImage("");
     setShowImageBox(false);
-    await refetchTweets();
+    toggleRefetchFlag();
   };
 
   return (

@@ -4,7 +4,9 @@ export type TweetPure = {
     picture: string
     image?: string
 }
-
+export interface TweetUpdated extends TweetPure {
+    _id: string
+}
 export interface Tweet extends TweetPure {
     _id: string
     _createdAt: string

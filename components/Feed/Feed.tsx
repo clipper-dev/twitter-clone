@@ -15,16 +15,29 @@ interface Props {
 export default function Feed({ tweets}:Props) {
   const {data: session} = useSession();
   const [tweetsFetched, setTweetsFetched] = React.useState<Tweet[]>(tweets);
+
+
+  const refetchTweets = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/getTweets`);
+    const data = await res.json();
+    const tweets: Tweet[] = data.tweets;
+    setTweetsFetched(tweets);
+  };
+
+  const toggleRefetchFlag = () => {
+    refetchTweets();
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Home</h1>
         <h1 className={styles.swapFeedIcon}><BsStars/></h1>
       </div>
-      {session && <TweetBox setTweetsFetched={setTweetsFetched}/>}
+      {session && <TweetBox toggleRefetchFlag={toggleRefetchFlag}/>}
       {tweetsFetched.map(tweet => {
         return (
-          <TweetView key={tweet._id} tweet={tweet} />
+          <TweetView key={tweet._id} tweet={tweet} toggleRefetchFlag={toggleRefetchFlag}/>
         )
       })}
     </div>

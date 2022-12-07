@@ -1,28 +1,77 @@
 /* eslint-disable @next/next/no-img-element */
 
 import React, { useEffect, useState } from "react";
-import { Comment, Tweet, CommentPure } from "../../typings.def";
+import { Comment, Tweet, CommentPure, TweetUpdated } from "../../typings.def";
 import styles from "./TweetView.module.css";
 import TimeAgo from "react-timeago";
 
-import { HiOutlineSwitchVertical, HiUpload } from "react-icons/hi";
+import { HiOutlineSwitchVertical, HiUpload, HiX } from "react-icons/hi";
 import {
   HiOutlineHeart,
   HiOutlineChatBubbleOvalLeft,
   HiPencil,
+  HiCheck,
+  HiTrash,
 } from "react-icons/hi2";
 import { useSession } from "next-auth/react";
 
 interface Props {
   tweet: Tweet;
+  toggleRefetchFlag: () => void;
 }
 
-export default function TweetView({ tweet }: Props) {
+export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentContent, setCommentContent] = useState<string>("");
   const [showCommentBox, setShowCommentBox] = useState<boolean>(false);
   const { data: session } = useSession();
 
+  /* editing tweet */
+  const [editTweet, setEditTweet] = useState<boolean>(false);
+  const [editedTweet, setEditedTweet] = useState<string>(tweet.content);
+  const [editedTweetUrl, setEditedTweetUrl] = useState<string | undefined>(
+    tweet.image
+  );
+
+  const postUpdatedTweet = async () => {
+    const updatedTweet: TweetUpdated = {
+      content: editedTweet,
+      image: editedTweetUrl,
+      _id: tweet._id,
+      username: tweet.username,
+      picture: tweet.picture,
+    };
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/updateTweet`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTweet),
+    });
+    toggleRefetchFlag();
+  };
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.preventDefault();
+    postUpdatedTweet();
+  };
+
+  /* delete tweet */
+  const deleteTweet = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/deleteTweet`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tweet._id as string),
+    });
+  };
+  const handleDeleteTweet = async () => {
+    await deleteTweet();  
+    toggleRefetchFlag();
+  };
+
+  /* adding comments */
   const refetchComments = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_URL}/api/getComments?tweetId=${tweet._id}`
@@ -31,7 +80,6 @@ export default function TweetView({ tweet }: Props) {
     const comments: Comment[] = data.comments;
     setComments(comments);
   };
-
   const postComment = async () => {
     const comment: CommentPure = {
       content: commentContent,
@@ -89,11 +137,70 @@ export default function TweetView({ tweet }: Props) {
             @{tweet.username.toLowerCase().replace(/\s+/g, "")}
           </div>
           <TimeAgo className={styles.timeAgo} date={tweet._createdAt} />
+          {tweet.username === session?.user?.name &&
+            (editTweet ? (
+              <>
+                <HiCheck
+                  className={styles.editTweet}
+                  onClick={() => {
+                    postUpdatedTweet();
+                    setEditTweet(false);
+                  }}
+                />
+                <HiX
+                  className={styles.editTweet}
+                  onClick={() => {
+                    setEditTweet(false);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <HiPencil
+                  className={styles.editTweet}
+                  onClick={() => {
+                    setEditTweet(true);
+                  }}
+                />
+                <HiTrash
+                  className={styles.deleteTweet}
+                  onClick={() => {
+                    handleDeleteTweet();
+                  }}
+                />
+              </>
+            ))}
         </div>
-        <div className={styles.tweet}>{tweet.content}</div>
-        {tweet.image !== "" && (
-          <img className={styles.image} src={tweet.image} alt="Tweets image" />
+        {editTweet ? (
+          <textarea
+            className={styles.editedTweetContent}
+            value={editedTweet}
+            onChange={(e) => {
+              setEditedTweet(e.target.value);
+            }}
+          />
+        ) : (
+          <div className={styles.tweet}>{tweet.content}</div>
         )}
+        {tweet.image !== "" &&
+          (editTweet ? (
+            <>
+              <textarea
+                className={styles.editedTweetContent}
+                value={editedTweetUrl}
+                onChange={(e) => {
+                  setEditedTweetUrl(e.target.value);
+                }}
+              />
+              <img
+                className={styles.image}
+                src={editedTweetUrl}
+                alt="Tweets image"
+              />
+            </>
+          ) : (
+            <img className={styles.image} src={tweet.image} alt="Tweet image" />
+          ))}
         <div className={styles.icons}>
           <div
             className={styles.icon}
@@ -135,8 +242,9 @@ export default function TweetView({ tweet }: Props) {
                       className={styles.timeAgo}
                       date={comment._createdAt}
                     />
- {/*                    {comment.username === session?.user?.name && <HiPencil className={styles.editComment} />}
- */}                  </div>
+                    {/*                    {comment.username === session?.user?.name && <HiPencil className={styles.editComment} />}
+                     */}{" "}
+                  </div>
                   <div className={styles.tweet}>{comment.content}</div>
                 </div>
               </div>
