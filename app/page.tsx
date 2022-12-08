@@ -9,7 +9,6 @@ import { client } from "../sanity";
 
 import { unstable_getServerSession } from "next-auth/next";
 import { Providers } from "../components/Auth/Providers";
-import { RecoilRoot } from "recoil";
 import MainView from "../components/MainView/MainView";
 
 const query = groq`
