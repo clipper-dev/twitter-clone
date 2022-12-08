@@ -7,6 +7,7 @@ import { Tweet } from "../../typings.def";
 
 import TweetView from "../TweetView/TweetView";
 import { useSession } from "next-auth/react";
+import { fetchTweets } from "../../utils/tweets";
 
 interface Props {
   tweets: Tweet[]
@@ -15,17 +16,9 @@ interface Props {
 export default function Feed({ tweets}:Props) {
   const {data: session} = useSession();
   const [tweetsFetched, setTweetsFetched] = React.useState<Tweet[]>(tweets);
-
-
-  const refetchTweets = async () => {
-    const res = await fetch(`/api/getTweets`);
-    const data = await res.json();
-    const tweets: Tweet[] = data.tweets;
-    setTweetsFetched(tweets);
-  };
-
-  const toggleRefetchFlag = () => {
-    refetchTweets();
+  
+  const toggleRefetchFlag = async () => {
+    setTweetsFetched(await fetchTweets());
   };
 
   return (

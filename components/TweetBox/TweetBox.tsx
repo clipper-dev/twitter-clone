@@ -6,20 +6,18 @@ import { HiPhoto, HiGif, HiListBullet } from "react-icons/hi2";
 import { HiEmojiHappy, HiCalendar, HiLocationMarker } from "react-icons/hi";
 import { useSession } from "next-auth/react";
 import { TweetPure, Tweet } from "../../typings.def";
+import { postTweet } from "../../utils/tweets";
 
 interface Props {
   toggleRefetchFlag: () => void;
 }
-
 export default function TweetBox({ toggleRefetchFlag }: Props) {
   const [tweetInput, setTweetInput] = useState<string>("");
   const { data: session } = useSession();
   const [image, setImage] = useState<string>("");
   const [showImageBox, setShowImageBox] = useState<boolean>(false);
 
-
-
-  const postTweet = async () => {
+  const addTweet = async () => {
     const tweetPure: TweetPure = {
       content: tweetInput,
       image: image || "",
@@ -28,18 +26,12 @@ export default function TweetBox({ toggleRefetchFlag }: Props) {
         session?.user?.image ||
         "https://randomuser.me/api/portraits/women/1.jpg",
     };
-    const res = await fetch(`/api/addTweet`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(tweetPure),
-    });
+    await postTweet(tweetPure);
   };
 
   const handleAddTweet = async (e: any) => {
     e.preventDefault();
-    await postTweet();
+    await addTweet();
     setTweetInput("");
     setImage("");
     setShowImageBox(false);

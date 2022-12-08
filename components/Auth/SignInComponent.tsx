@@ -1,24 +1,15 @@
-"use client"
-import React from 'react'
-import styles from './SignInComponent.module.css'
-import { getProviders, signIn } from "next-auth/react";
+"use client";
+import React from "react";
+import styles from "./SignInComponent.module.css";
+import { signIn } from "next-auth/react";
 
-type Props = {
-  providers: Awaited<ReturnType<typeof getProviders>>
-}
-
-export default function SignInComponent({providers}:Props) {  
-  console.log(providers);
+export default function SignInComponent() {
   return (
     <div className={styles.container}>
       <h2>Welcome 👋</h2>
-       {providers && Object.values(providers!).map((provider)=>(
-        <div key={provider.name}>
-          <button onClick={()=>signIn(provider.id, {
-            callbackUrl: "/"
-          })}>Sign in with {provider.name}</button>
-          </div>
-            ))}
+      <button onClick={() => signIn("google", { callbackUrl: "/" })}>
+        Sign in Google
+      </button>
     </div>
-  )
+  );
 }

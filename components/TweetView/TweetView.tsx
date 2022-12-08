@@ -14,6 +14,8 @@ import {
   HiTrash,
 } from "react-icons/hi2";
 import { useSession } from "next-auth/react";
+import { deleteTweet, updateTweet } from "../../utils/tweets";
+import { fetchComments, postComment } from "../../utils/comments";
 
 interface Props {
   tweet: Tweet;
@@ -41,46 +43,19 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
       username: tweet.username,
       picture: tweet.picture,
     };
-    const res = await fetch(`/api/updateTweet`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedTweet),
-    });
+    updateTweet(updatedTweet);
     toggleRefetchFlag();
   };
 
-  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.preventDefault();
-    postUpdatedTweet();
-  };
-
-  /* delete tweet */
-  const deleteTweet = async () => {
-    const res = await fetch(`/api/deleteTweet`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(tweet._id as string),
-    });
-  };
   const handleDeleteTweet = async () => {
-    await deleteTweet();  
+    await deleteTweet(tweet._id);  
     toggleRefetchFlag();
   };
 
-  /* adding comments */
-  const refetchComments = async () => {
-    const res = await fetch(
-      `/api/getComments?tweetId=${tweet._id}`
-    );
-    const data = await res.json();
-    const comments: Comment[] = data.comments;
-    setComments(comments);
+  const getComments = async () => {
+    setComments(await fetchComments(tweet._id));
   };
-  const postComment = async () => {
+  const addComment = async () => {
     const comment: CommentPure = {
       content: commentContent,
       username: session?.user?.name || "Anonymous",
@@ -89,40 +64,22 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
         "https://randomuser.me/api/portraits/women/1.jpg",
       tweetId: tweet._id,
     };
-    const res = await fetch(`/api/addComment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    });
+    await postComment(comment);
   };
 
   const handleAddComment = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    await postComment();
+    await addComment();
     setCommentContent("");
     setShowCommentBox(false);
-    await refetchComments();
-  };
-
-  const fetchComments = async (tweetId: string) => {
-    const res = await fetch(
-      `/api/getComments?tweetId=${tweetId}`
-    );
-    const data = await res.json();
-    const comments: Comment[] = data.comments;
-    return comments;
-  };
-  const getComments = async () => {
-    const comments = await fetchComments(tweet._id);
-    setComments(comments);
+    await getComments();
   };
   useEffect(() => {
     getComments();
   }, []);
+  
   return (
     <div className={styles.container}>
       <img
