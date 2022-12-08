@@ -16,6 +16,7 @@ import {
 import { useSession } from "next-auth/react";
 import { deleteTweet, updateTweet } from "../../utils/tweets";
 import { fetchComments, postComment } from "../../utils/comments";
+import CommentView from "../CommentView/CommentView";
 
 interface Props {
   tweet: Tweet;
@@ -183,28 +184,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
         {comments?.length > 0 && (
           <div className={styles.comments}>
             {comments.map((comment) => (
-              <div className={styles.comment} key={comment._id}>
-                <img
-                  className={styles.picture}
-                  src={comment.picture}
-                  alt="Profile picture"
-                />
-                <div className={styles.content}>
-                  <div className={styles.header}>
-                    <div className={styles.user}>{comment.username}</div>
-                    <div className={styles.userName}>
-                      @{comment.username.toLowerCase().replace(/\s+/g, "")}
-                    </div>
-                    <TimeAgo
-                      className={styles.timeAgo}
-                      date={comment._createdAt}
-                    />
-                    {/*                    {comment.username === session?.user?.name && <HiPencil className={styles.editComment} />}
-                     */}{" "}
-                  </div>
-                  <div className={styles.tweet}>{comment.content}</div>
-                </div>
-              </div>
+              <CommentView key={comment._id} comment={comment} toggleRefetchFlag={getComments}/>
             ))}
           </div>
         )}

@@ -1,0 +1,160 @@
+
+  .picture {
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+  }
+  .user,
+  .userName,
+  .timeAgo,
+  .tweet {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .user {
+    font-weight: 700;
+  }
+  .tweet {
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+  .image {
+    max-width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--borderImage);
+  }
+  .content {
+    margin: 0 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .icons {
+    display: flex;
+    margin: 12px 0;
+    max-width: 425px;
+    font-size: 18px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .iconInner {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .iconInner:hover {
+    color: var(--accentBlue);
+    background-color: var(--backgroundLogoHover);
+  }
+  .icon p {
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    margin-left: 8px;
+  }
+  
+  .container form {
+    display: flex;
+    flex-grow: 1;
+    margin: 8px 0;
+  }
+  .commentBox input {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    line-height: 24px;
+    white-space: pre-wrap;
+    outline: none;
+    border: none;
+  }
+  .commentBox img {
+    margin: 16px 0;
+  }
+  .commentBox span {
+    font-size: 15px;
+    line-height: 20px;
+    color: var(--fontSecondary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .commentBox .userName {
+    color: var(--accentBlue);
+  }
+  .commentBox .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .commentBox button {
+    align-self: flex-end;
+    padding: 12px 16px;
+    color: var(--fontContrast);
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: var(--accentBlue);
+    border-radius: 9999px;
+    transition: all 0.2s;
+  }
+  .commentBox button:enabled:hover {
+    background-color: var(--accentBlueHover);
+  }
+  .commentBox button:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+  .comment {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid var(--borderMain);
+    border-bottom: 1px solid var(--borderMain);
+    padding: 8px;
+    padding-top: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  /* editing tweet */
+  .editTweet, .deleteTweet {
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    cursor: pointer;
+  }
+  .editTweet:hover, .deleteTweet:hover {
+    color: var(--accentBlue);
+    background-color: var(--backgroundLogoHover);
+  }
+  
+  
+  /* editing comment */
+  .comment:hover {
+    background-color: var(--backgroundButtonHover);
+  }
+  .editComment {
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+  }
+  .editComment:hover {
+    color: var(--accentBlue);
+    background-color: var(--backgroundLogoHover);
+  }
+  .editedTweetContent {
+    resize: none;
+  }

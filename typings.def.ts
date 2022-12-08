@@ -33,3 +33,7 @@ export interface Comment extends CommentPure {
         _type: 'reference'
     }
 }
+
+export interface CommentUpdated extends CommentPure {
+    _id: string
+}

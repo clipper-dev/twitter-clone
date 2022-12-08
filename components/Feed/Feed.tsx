@@ -11,9 +11,10 @@ import { fetchTweets } from "../../utils/tweets";
 
 interface Props {
   tweets: Tweet[]
+  filteredTweets: string
 }
 
-export default function Feed({ tweets}:Props) {
+export default function Feed({ tweets, filteredTweets}:Props) {
   const {data: session} = useSession();
   const [tweetsFetched, setTweetsFetched] = React.useState<Tweet[]>(tweets);
   
@@ -28,7 +29,7 @@ export default function Feed({ tweets}:Props) {
         <h1 className={styles.swapFeedIcon}><BsStars/></h1>
       </div>
       {session && <TweetBox toggleRefetchFlag={toggleRefetchFlag}/>}
-      {tweetsFetched.map(tweet => {
+      {tweetsFetched.filter((tweet) => tweet.content.toLowerCase().includes(filteredTweets.toLowerCase())).map(tweet => {
         return (
           <TweetView key={tweet._id} tweet={tweet} toggleRefetchFlag={toggleRefetchFlag}/>
         )

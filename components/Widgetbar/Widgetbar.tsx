@@ -6,7 +6,11 @@ import { trends } from "../../Data/data";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default function Widgetbar() {
+interface Props {
+  setFilteredTweets: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Widgetbar({ setFilteredTweets }: Props) {
   const formatter = Intl.NumberFormat("en-US", {
     notation: "compact",
   });
@@ -15,7 +19,11 @@ export default function Widgetbar() {
     <div className={styles.container}>
       <div className={styles.searchBar}>
         <HiSearch className={styles.searchIcon} />
-        <input type="text" placeholder="Search Twitter" />
+        <input
+          type="text"
+          placeholder="Search Twitter"
+          onChange={(e) => setFilteredTweets(e.target.value)}
+        />
       </div>
       {session ? (
         <div className={styles.trends}>
@@ -35,7 +43,9 @@ export default function Widgetbar() {
           </div>
         </div>
       ) : (
-        <Link href="/auth/signin" className={styles.tweetButton}>Sign it</Link>
+        <Link href="/auth/signin" className={styles.tweetButton}>
+          Sign it
+        </Link>
       )}
     </div>
   );
