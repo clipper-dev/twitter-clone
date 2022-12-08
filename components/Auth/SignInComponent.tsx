@@ -7,7 +7,8 @@ type Props = {
   providers: Awaited<ReturnType<typeof getProviders>>
 }
 
-export default function SignInComponent({providers}:Props) {
+export default function SignInComponent({providers}:Props) {  
+  console.log(providers);
   return (
     <div className={styles.container}>
       <h2>Welcome 👋</h2>

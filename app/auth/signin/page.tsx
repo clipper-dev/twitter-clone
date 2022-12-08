@@ -6,6 +6,7 @@ import SignInComponent from "../../../components/Auth/SignInComponent";
 
 export default async function SignIn() {
   const providers = await getProviders();
+  console.log(providers);
   return <div className={styles.container}>
     <SignInComponent providers={providers}/>
   </div>;
