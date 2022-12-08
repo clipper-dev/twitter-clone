@@ -12,11 +12,13 @@ import {
   HiPencil,
   HiCheck,
   HiTrash,
+  HiHeart,
 } from "react-icons/hi2";
 import { useSession } from "next-auth/react";
 import { deleteTweet, updateTweet } from "../../utils/tweets";
 import { fetchComments, postComment } from "../../utils/comments";
 import CommentView from "../CommentView/CommentView";
+import { likeTweet } from "../../utils/likes";
 
 interface Props {
   tweet: Tweet;
@@ -28,6 +30,45 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
   const [commentContent, setCommentContent] = useState<string>("");
   const [showCommentBox, setShowCommentBox] = useState<boolean>(false);
   const { data: session } = useSession();
+  const [liked, setLiked] = useState<boolean>(false);
+  /* check if tweet is liked */
+  useEffect(() => {
+    if (
+      tweet.likes?.includes(
+        "@" + session?.user?.name?.toLowerCase().replace(/\s+/g, "")
+      )
+    ) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+  }, [tweet.likes]);
+
+  /* liking the tweet */
+  const handleLikeTweet = async () => {
+    let likingUser =
+      "@" + session?.user?.name?.toLowerCase().replace(/\s+/g, "");
+    if (likingUser) {
+      let likes = tweet.likes || [];
+      if (tweet.likes?.includes(likingUser)) {
+        /* remove the username from the array */
+        likes = likes.filter((like) => like !== likingUser);
+      } else {
+        /* add the username to the array */
+        likes.push(likingUser);
+      }
+      const updatedTweet: TweetUpdated = {
+        _id: tweet._id,
+        content: tweet.content,
+        image: tweet.image,
+        username: tweet.username,
+        picture: tweet.picture,
+        likes: likes,
+      };
+      likeTweet(updatedTweet);
+      toggleRefetchFlag();
+    }
+  };
 
   /* editing tweet */
   const [editTweet, setEditTweet] = useState<boolean>(false);
@@ -44,12 +85,12 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
       username: tweet.username,
       picture: tweet.picture,
     };
-    updateTweet(updatedTweet);
+    await updateTweet(updatedTweet);
     toggleRefetchFlag();
   };
 
   const handleDeleteTweet = async () => {
-    await deleteTweet(tweet._id);  
+    await deleteTweet(tweet._id);
     toggleRefetchFlag();
   };
 
@@ -62,7 +103,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
       username: session?.user?.name || "Anonymous",
       picture:
         session?.user?.image ||
-        "https://randomuser.me/api/portraits/women/1.jpg",
+        "https://coderburg.com/extra/defaultAvatar.png",
       tweetId: tweet._id,
     };
     await postComment(comment);
@@ -80,7 +121,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
   useEffect(() => {
     getComments();
   }, []);
-  
+
   return (
     <div className={styles.container}>
       <img
@@ -174,8 +215,18 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
             <p></p>
           </div>
           <div className={styles.icon}>
-            <HiOutlineHeart className={styles.iconInner} />
-            <p>3</p>
+            {liked ? (
+              <HiHeart
+                className={styles.iconInnerLiked}
+                onClick={() => handleLikeTweet()}
+              />
+            ) : (
+              <HiOutlineHeart
+                className={styles.iconInner}
+                onClick={() => handleLikeTweet()}
+              />
+            )}
+            <p>{tweet.likes?.length || 0}</p>
           </div>
           <div className={styles.icon}>
             <HiUpload className={styles.iconInner} />
@@ -184,7 +235,11 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
         {comments?.length > 0 && (
           <div className={styles.comments}>
             {comments.map((comment) => (
-              <CommentView key={comment._id} comment={comment} toggleRefetchFlag={getComments}/>
+              <CommentView
+                key={comment._id}
+                comment={comment}
+                toggleRefetchFlag={getComments}
+              />
             ))}
           </div>
         )}
@@ -194,7 +249,7 @@ export default function TweetView({ tweet, toggleRefetchFlag }: Props) {
               className={styles.picture}
               src={
                 session?.user?.image ||
-                "https://randomuser.me/api/portraits/women/1.jpg"
+                "https://coderburg.com/extra/defaultAvatar.png"
               }
               alt="Profile picture"
             />

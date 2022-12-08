@@ -3,6 +3,7 @@ export type TweetPure = {
     username: string
     picture: string
     image?: string
+    likes?: string[]
 }
 export interface TweetUpdated extends TweetPure {
     _id: string

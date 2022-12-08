@@ -57,7 +57,7 @@
   flex-direction: row;
   align-items: center;
 }
-.iconInner {
+.iconInner, .iconInnerLiked {
   width: 32px;
   height: 32px;
   padding: 8px;
@@ -65,7 +65,10 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-.iconInner:hover {
+.iconInnerLiked{
+  color: tomato;
+}
+.iconInner:hover, .iconInnerLiked:hover {
   color: var(--accentBlue);
   background-color: var(--backgroundLogoHover);
 }

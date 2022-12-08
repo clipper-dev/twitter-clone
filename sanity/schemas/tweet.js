@@ -23,5 +23,15 @@ export default {
       title: 'Tweet image',
       type: 'string',
     },
+    {
+      name: 'likes',
+      title: 'People liking the tweet',
+      type: 'array',
+      of: [
+        {
+          type: 'string',
+        },
+      ],
+    }
   ],
 }
